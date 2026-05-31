@@ -224,28 +224,34 @@ Sepolia Testnet
 
 # 📷 7. Hình ảnh hệ thống
 
-### Hình 1. Giao diện Dashboard
+### Hình 1. Giao diện đăng nhập
 
 <p align="center">
-<img src="docs/dashboard.png" width="700">
+<img src="docs/e.png" width="700">
 </p>
 
-### Hình 2. Phát hiện buồn ngủ
+### Hình 2. Mắt mở bình thường
 
 <p align="center">
-<img src="docs/detection.png" width="700">
+<img src="docs/f.png" width="700">
 </p>
 
-### Hình 3. Kết nối MetaMask
+### Hình 3. Mắt mở bất thường
 
 <p align="center">
-<img src="docs/metamask.png" width="700">
+<img src="docs/a.png" width="700">
 </p>
 
-### Hình 4. Lưu dữ liệu lên Blockchain
+### Hình 4. Phát hiện buồn ngủ & mất tập trung 
 
 <p align="center">
-<img src="docs/blockchain.png" width="700">
+<img src="docs/k.png" width="700">
+</p>
+
+### Hình 5. Kết nối MetaMask & Lưu dữ liệu lên Blockchain
+
+<p align="center">
+<img src="docs/s.png" width="700">
 </p>
 
 ---
