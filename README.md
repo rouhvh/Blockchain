@@ -19,98 +19,257 @@
 
 </div>
 
-# Hệ thống cảnh báo buồn ngủ khi lái xe kết hợp Blockchain
+# 🚗💤 HỆ THỐNG CẢNH BÁO BUỒN NGỦ KHI LÁI XE KẾT HỢP BLOCKCHAIN
 
+<h2 align="center">
+    <a href="https://dainam.edu.vn/vi/khoa-cong-nghe-thong-tin">
+    🎓 Faculty of Information Technology (DaiNam University)
+    </a>
+</h2>
 
-Hệ thống giám sát an toàn giao thông thông minh cho tài xế dựa trên camera, OpenCV, Flask và lớp ghi nhận sự kiện bằng blockchain nội bộ. Khi phát hiện mắt nhắm hoặc dấu hiệu buồn ngủ, hệ thống sẽ cảnh báo tức thì, chụp ảnh và lưu sự kiện để theo dõi sau này.
+<h2 align="center">
+    HỆ THỐNG CẢNH BÁO BUỒN NGỦ KHI LÁI XE KẾT HỢP BLOCKCHAIN
+</h2>
 
-## Tính năng chính
-- Phát hiện buồn ngủ theo khung hình camera thời gian thực.
-- Cảnh báo tức thì bằng âm thanh và hiển thị overlay trên video.
-- Lưu ảnh sự kiện vào `captured_images/`.
-- Ghi nhận sự kiện vào local blockchain để kiểm tra lịch sử.
-- Giao diện web để xem video trực tiếp và trạng thái hệ thống.
+<div align="center">
+    <p align="center">
+        <img src="docs/fitdnu_logo.png" alt="FITDNU Logo" width="180"/>
+        <img src="docs/dnu_logo.png" alt="Dai Nam University Logo" width="200"/>
+    </p>
 
-## Cấu trúc chính
-- `importcv2.py`: ứng dụng Flask chính cho Smart Traffic Safety.
-- `motion_detection.py`: bộ khởi chạy tương thích, chuyển hướng sang ứng dụng chính.
-- `start_server.bat`: file chạy nhanh trên Windows.
-- `templates/index_flask_server.html`: giao diện dashboard.
-- `train_latest_drowsiness_model.py`: script huấn luyện transfer learning cho model mới.
-- `blockchain.py`: lưu sự kiện drowsiness vào chuỗi khối nội bộ.
-- `user_identity.py`: quản lý người dùng và phiên đăng nhập.
+</div>
 
-## Cài đặt
+---
+
+# 📖 1. Giới thiệu hệ thống
+
+## 🚗 Hệ thống cảnh báo buồn ngủ khi lái xe kết hợp Blockchain
+
+Tai nạn giao thông do tài xế mất tập trung hoặc buồn ngủ là một trong những nguyên nhân gây thiệt hại lớn về người và tài sản. Đề tài xây dựng hệ thống giám sát trạng thái người lái xe bằng công nghệ xử lý ảnh kết hợp Blockchain nhằm phát hiện sớm dấu hiệu buồn ngủ và lưu trữ dữ liệu cảnh báo một cách minh bạch, an toàn.
+
+Hệ thống sử dụng camera để theo dõi khuôn mặt tài xế, phân tích trạng thái mắt và khuôn mặt theo thời gian thực. Khi phát hiện dấu hiệu buồn ngủ, hệ thống sẽ phát cảnh báo và lưu thông tin sự kiện lên Blockchain thông qua Smart Contract.
+
+---
+
+# 🏗️ Kiến trúc hệ thống
+
+## 📷 Camera Monitoring
+
+* Thu nhận hình ảnh khuôn mặt người lái xe.
+* Gửi dữ liệu đến hệ thống xử lý.
+
+## 🤖 AI Processing Module
+
+* Phát hiện khuôn mặt.
+* Theo dõi trạng thái mắt.
+* Tính toán EAR (Eye Aspect Ratio).
+* Nhận diện trạng thái buồn ngủ.
+* Kích hoạt cảnh báo.
+
+## ⛓️ Blockchain Module
+
+* Tạo mã hash SHA-256 cho dữ liệu cảnh báo.
+* Ghi nhận sự kiện lên Blockchain.
+* Đảm bảo tính toàn vẹn dữ liệu.
+* Hỗ trợ truy xuất và kiểm chứng lịch sử cảnh báo.
+
+## 🌐 Web Dashboard
+
+* Hiển thị trạng thái hệ thống.
+* Kết nối MetaMask.
+* Theo dõi lịch sử cảnh báo.
+* Lưu dữ liệu lên Blockchain.
+
+---
+
+# 🚀 2. Chức năng chính
+
+## 👁️ Giám sát trạng thái người lái
+
+* Theo dõi khuôn mặt theo thời gian thực.
+* Phát hiện mắt mở hoặc nhắm.
+* Tính toán chỉ số EAR.
+
+## ⚠️ Cảnh báo buồn ngủ
+
+* Phát hiện mắt nhắm trong thời gian dài.
+* Cảnh báo bằng âm thanh.
+* Hiển thị trạng thái nguy hiểm trên giao diện.
+
+## 📸 Lưu ảnh bằng chứng
+
+* Chụp ảnh tại thời điểm phát hiện buồn ngủ.
+* Lưu trữ phục vụ kiểm tra sau này.
+
+## 🔐 Tạo mã hash SHA-256
+
+* Sinh mã băm cho dữ liệu sự kiện.
+* Kiểm tra tính toàn vẹn của dữ liệu.
+
+## ⛓️ Lưu dữ liệu lên Blockchain
+
+* Kết nối MetaMask.
+* Ký giao dịch Blockchain.
+* Ghi nhận sự kiện thông qua Smart Contract.
+
+---
+
+# 🛠️ 3. Công nghệ sử dụng
+
+| Công nghệ           | Vai trò                    |
+| ------------------- | -------------------------- |
+| Python              | Xây dựng hệ thống          |
+| Flask               | Web Server                 |
+| OpenCV              | Xử lý hình ảnh             |
+| MediaPipe           | Nhận diện khuôn mặt và mắt |
+| TensorFlow/Keras    | Mô hình nhận diện buồn ngủ |
+| Blockchain Ethereum | Lưu dữ liệu cảnh báo       |
+| Solidity            | Xây dựng Smart Contract    |
+| MetaMask            | Ký giao dịch               |
+| Infura              | Kết nối Blockchain         |
+| Web3.py             | Tương tác Blockchain       |
+| SHA-256             | Kiểm tra toàn vẹn dữ liệu  |
+
+---
+
+# 📂 4. Cấu trúc dự án
+
+```bash
+project/
+│
+├── templates/
+├── static/
+├── models/
+├── captured_images/
+├── blockchain.py
+├── deploy_contract.py
+├── testAmThanh.py
+├── DrowsinessDetection.sol
+├── requirements.txt
+├── .env
+└── README.md
+```
+
+---
+
+# 🚀 5. Hướng dẫn cài đặt
+
+## 5.1. Tạo môi trường ảo
+
+```bash
+python -m venv .venv
+```
+
+## 5.2. Kích hoạt môi trường
+
+Windows PowerShell
+
+```bash
+.venv\Scripts\Activate.ps1
+```
+
+## 5.3. Cài đặt thư viện
+
 ```bash
 pip install -r requirements.txt
 ```
 
-Nếu bạn dùng các bản mở rộng như `thu5.py` hoặc `testAmThanh.py`, hãy cài thêm `tensorflow`, `gTTS`, `pygame`, `Pillow` và `playsound` theo nhu cầu.
+## 5.4. Cấu hình file .env
 
-## 4.5 Kết nối MetaMask
-- Cài đặt MetaMask trên trình duyệt và chuyển sang mạng `Sepolia`.
-- Đảm bảo ví có đủ test ETH để ký và gửi giao dịch.
-- Mở giao diện web, bấm `Kết nối MetaMask` rồi xác nhận ví.
-- Ứng dụng sẽ dùng `CONTRACT_ADDRESS` từ máy chủ để tránh ghi đè sai ở trình duyệt.
-
-## 4.6 Triển khai smart contract
-- Compile và deploy `DrowsinessDetection.sol` bằng Remix hoặc `deploy_contract.py`.
-- Sao chép địa chỉ contract vừa deploy vào biến môi trường `CONTRACT_ADDRESS` trong `.env`.
-- Khởi động lại ứng dụng sau khi cập nhật `.env` để frontend và backend dùng cùng một địa chỉ.
-- Nếu đổi contract mới, cần reload trang để MetaMask gọi đúng ABI và address.
-
-## Huấn luyện model mới
-Khi có dataset, bạn có thể train model mới bằng script:
-```bash
-python train_latest_drowsiness_model.py --data-dir dataset --output models/drowsiness_latest.keras
+```env
+INFURA_URL=your_infura_url
+CONTRACT_ADDRESS=your_contract_address
 ```
 
-Dataset nên được tổ chức theo thư mục lớp, ví dụ:
+## 5.5. Chạy hệ thống
+
+```bash
+python testAmThanh.py
+```
+
+## 5.6. Truy cập Web
+
 ```text
-dataset/
-	open/
-	closed/
-	yawning/
-	distracted/
+http://127.0.0.1:5000
 ```
 
-Nếu TensorFlow chưa được cài trong môi trường hiện tại, script sẽ báo rõ và dừng an toàn.
+---
 
-## Chạy hệ thống
-```bash
-python motion_detection.py
+# ⛓️ 6. Triển khai Smart Contract
+
+1. Mở Remix IDE.
+2. Compile file:
+
+```text
+DrowsinessDetection.sol
 ```
 
-Mặc định, app dùng MediaPipe Face Mesh để phát hiện mắt nhắm. Nếu muốn đổi mode, đặt biến môi trường:
-```bash
-set DETECTION_MODE=mediapipe
+3. Chọn:
+
+```text
+Injected Provider - MetaMask
 ```
 
-Nếu muốn dùng YOLOv8, đặt `DETECTION_MODE=yolov8` và `YOLO_MODEL_PATH=models/drowsiness_yolov8.pt`.
+4. Deploy lên mạng:
 
-Nếu chưa có `mediapipe` hoặc `ultralytics`, ứng dụng sẽ tự quay về chế độ Haar cascade để vẫn chạy được.
-
-Hoặc trên Windows:
-```bat
-start_server.bat
+```text
+Sepolia Testnet
 ```
 
-Bạn có thể truyền camera URL qua biến môi trường `CAMERA_URL` hoặc tham số đầu tiên của `start_server.bat`.
+5. Lưu Contract Address.
 
-## Luồng hoạt động
-1. Nhận khung hình từ camera hoặc điện thoại qua `CAMERA_URL`.
-2. Phát hiện khuôn mặt, mắt và tư thế đầu.
-3. Nếu dấu hiệu buồn ngủ kéo dài vượt ngưỡng, hệ thống chụp ảnh và phát cảnh báo.
-4. Sự kiện được xếp hàng chờ MetaMask ký giao dịch, sau đó được ghi lên smart contract và hiển thị trên dashboard.
+6. Cập nhật địa chỉ vào file `.env`.
 
-## 5.5 Gửi cảnh báo qua MetaMask
-- Backend đẩy sự kiện buồn ngủ vào hàng đợi `/api/metamask/next-alert`.
-- Frontend lấy từng cảnh báo, tạo giao dịch `addDrowsinessEvent(...)` và yêu cầu MetaMask ký.
-- Khi giao dịch được xác nhận, frontend gọi `/api/metamask/ack-alert` để đánh dấu đã xử lý.
-- Toàn bộ địa chỉ contract lấy từ server, không phụ thuộc `localStorage` của trình duyệt.
+---
 
-## Ghi chú
-- Các script như `thu5.py`, `test8.py`, `testAmThanh.py` là biến thể thử nghiệm hoặc mở rộng.
-- Nếu muốn xem tích hợp MetaMask/Smart Contract, đọc thêm `README_MetaMask.md`.
+# 📷 7. Hình ảnh hệ thống
 
-© 2025 NHÓM 2, CNTT16-04, TRƯỜNG ĐẠI HỌC ĐẠI NAM
+### Hình 1. Giao diện Dashboard
+
+<p align="center">
+<img src="docs/dashboard.png" width="700">
+</p>
+
+### Hình 2. Phát hiện buồn ngủ
+
+<p align="center">
+<img src="docs/detection.png" width="700">
+</p>
+
+### Hình 3. Kết nối MetaMask
+
+<p align="center">
+<img src="docs/metamask.png" width="700">
+</p>
+
+### Hình 4. Lưu dữ liệu lên Blockchain
+
+<p align="center">
+<img src="docs/blockchain.png" width="700">
+</p>
+
+---
+
+# 📊 8. Kết quả đạt được
+
+* Phát hiện trạng thái buồn ngủ của người lái.
+* Cảnh báo bằng âm thanh theo thời gian thực.
+* Lưu ảnh bằng chứng.
+* Tạo mã hash SHA-256.
+* Kết nối thành công MetaMask.
+* Lưu dữ liệu cảnh báo lên Blockchain Ethereum Sepolia.
+* Đảm bảo tính minh bạch và khả năng kiểm chứng dữ liệu.
+
+---
+
+# 📞 9. Thông tin sinh viên
+
+* Họ và tên: Lê Hải Đăng
+* Lớp: CNTT 16-04
+* MSV: 1671020084
+* Trường: Đại học Đại Nam
+* Khoa: Công nghệ Thông tin
+
+---
+
+## © 2026 Faculty of Information Technology - Dai Nam University
