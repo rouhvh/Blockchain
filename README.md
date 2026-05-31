@@ -273,6 +273,7 @@ Sepolia Testnet
 * Họ và tên: Lê Hải Đăng
 * Lớp: CNTT 16-04
 * MSV: 1671020084
+* Gmail: dangngoc1122004@gmai.com
 * Trường: Đại học Đại Nam
 * Khoa: Công nghệ Thông tin
 
