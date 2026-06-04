@@ -200,17 +200,28 @@ Sepolia Testnet
 6. Cập nhật địa chỉ vào file `.env`.
 
 ---
+# 🖼️ 7. Poster Đề Tài
 
-# 📷 7. Hình ảnh hệ thống
+<p align="center">
+    <img src="docs/q.png" alt="Poster hệ thống cảnh báo buồn ngủ khi lái xe kết hợp Blockchain" width="900"/>
+</p>
+
+<p align="center">
+    <b>Poster giới thiệu hệ thống cảnh báo buồn ngủ khi lái xe kết hợp Blockchain</b>
+</p>
+
+---
+
+# 📷 8. Hình ảnh hệ thống
 
 ### Hình 1. Giao diện đăng nhập
 
 <p align="center">
-<<<<<<< HEAD
+
 <img src="docs/.png" width="700">
 =======
 <img src="docs/e.png" width="700">
->>>>>>> 589a78ad6245bdb5945a1e68d0760bf87d01298d
+
 </p>
 
 ### Hình 2. Mắt mở bình thường
@@ -239,7 +250,7 @@ Sepolia Testnet
 
 ---
 
-# 📊 8. Kết quả đạt được
+# 📊 9. Kết quả đạt được
 
 * Phát hiện trạng thái buồn ngủ của người lái.
 * Cảnh báo bằng âm thanh theo thời gian thực.
@@ -251,7 +262,7 @@ Sepolia Testnet
 
 ---
 
-# 📞 9. Thông tin sinh viên
+# 📞 10. Thông tin sinh viên
 
 * Họ và tên: Lê Hải Đăng
 * Lớp: CNTT 16-04
