@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Đăng nhập - Smart Traffic Safety</title>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, rgba(56, 189, 248, 0.16), transparent 26%),
+                  radial-gradient(circle at bottom right, rgba(16, 185, 129, 0.12), transparent 23%),
+                  #03101f;
+      color: #e2e8f0;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+    .card {
+      width: min(520px, 100%);
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(148, 163, 184, 0.16);
+      border-radius: 24px;
+      box-shadow: 0 24px 50px rgba(0,0,0,0.35);
+      padding: 32px;
+    }
+    h1 {
+      margin: 0 0 12px;
+      font-size: 2rem;
+    }
+    p {
+      margin: 0 0 24px;
+      color: #94a3b8;
+      line-height: 1.6;
+    }
+    .field {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    label {
+      font-weight: 600;
+      color: #cbd5e1;
+    }
+    select, input {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      background: rgba(15, 23, 42, 0.88);
+      color: #f8fafc;
+      font-size: 1rem;
+    }
+    input:focus {
+      outline: none;
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.12);
+    }
+    .btn {
+      width: 100%;
+      padding: 14px 16px;
+      background: linear-gradient(135deg, #0ea5e9, #22c55e);
+      border: none;
+      border-radius: 14px;
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    .btn:hover {
+      filter: brightness(1.05);
+    }
+    .note {
+      color: #94a3b8;
+      margin-top: 14px;
+      font-size: 0.95rem;
+    }
+    .message {
+      margin-bottom: 16px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: rgba(220, 38, 38, 0.12);
+      border: 1px solid rgba(248, 113, 113, 0.2);
+      color: #fee2e2;
+    }
+    .auth-hint {
+      margin-top: 18px;
+      color: #cbd5e1;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    .auth-hint code {
+      background: rgba(148, 163, 184, 0.12);
+      padding: 3px 6px;
+      border-radius: 6px;
+      color: #f8fafc;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Smart Traffic Safety</h1>
+    <p>Đăng nhập để truy cập dashboard, xem video trực tiếp và theo dõi cảnh báo buồn ngủ.</p>
+    {% if message %}
+      <div class="message">{{ message }}</div>
+    {% endif %}
+    <form method="post">
+      <div class="field">
+        <label for="role">Vai trò</label>
+        <select id="role" name="role" required>
+          <option value="driver">Người Dùng</option>
+          <option value="manager">Quản Trị Hệ Thống</option>
+          <option value="admin">Quản Trị Viên</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="username">Tên đăng nhập</label>
+        <input id="username" name="username" type="text" placeholder="driver1" required>
+      </div>
+      <div class="field">
+        <label for="password">Mật khẩu</label>
+        <input id="password" name="password" type="password" placeholder="123456" required>
+      </div>
+      <button class="btn" type="submit">Đăng nhập</button>
+    </form>
+    <!-- Form posts directly to /login (server handles session and redirects) -->
+    <div class="auth-hint">
+      Tài khoản mẫu: <strong>driver1 / 123456</strong> hoặc <strong>driver2 / 123456</strong>.
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body class="bg-white">
+    <div class="container py-3" style="max-width:1100px;">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="mb-0">Quản trị hệ thống (Admin)</h3>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card mb-3">
+            <div class="card-body">
+              <h5 class="card-title">Quản lý người dùng</h5>
+              <div id="users-list"></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Blockchain</h5>
+              <div class="mb-2">
+                <button id="btn-mine" class="btn btn-primary me-2">Khai thác khối</button>
+                <button id="btn-export" class="btn btn-secondary me-2">Xuất blockchain</button>
+                <button id="btn-verify" class="btn btn-info">Xác minh</button>
+              </div>
+              <pre id="bc-output" style="height:200px; overflow:auto;"></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Cấu hình hệ thống</h5>
+              <div>
+                <label>Ngưỡng đóng mắt (EAR):</label>
+                <input id="inp-ear" class="form-control" value="{{ config.get('MEDIAPIPE_EAR_THRESHOLD', 0.21) if config is defined else 0.21 }}" />
+                <small class="text-muted">Thay đổi yêu cầu khởi động lại server để áp dụng.</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      async function loadUsers(){
+        const r = await fetch('/api/admin/users');
+        const d = await r.json();
+        const wrap = document.getElementById('users-list');
+        wrap.innerHTML='';
+        if(d.users){
+          d.users.forEach(u=>{
+            const div = document.createElement('div');
+            div.className='d-flex justify-content-between align-items-center py-2 border-bottom';
+            div.innerHTML = `<div><strong>${u.username}</strong><div class="text-muted">${u.email}</div></div>`;
+            const sel = document.createElement('select');
+            sel.className='form-select form-select-sm w-auto';
+            ['manager','admin'].forEach(role=>{
+              const opt = document.createElement('option'); opt.value=role; opt.text=role; if(u.role===role) opt.selected=true; sel.appendChild(opt);
+            });
+            sel.addEventListener('change', async ()=>{
+              await fetch(`/api/admin/users/${u.id}/role`, {method:'POST', headers:{'content-type':'application/json'}, body:JSON.stringify({role: sel.value})});
+              alert('Role updated');
+              loadUsers();
+            });
+            div.appendChild(sel);
+            wrap.appendChild(div);
+          });
+        }
+      }
+
+      document.getElementById('btn-mine').addEventListener('click', async ()=>{
+        const r = await fetch('/api/blockchain/mine', {method:'POST'});
+        document.getElementById('bc-output').textContent = await r.text();
+      });
+
+      document.getElementById('btn-export').addEventListener('click', async ()=>{
+        const r = await fetch('/api/blockchain/export');
+        const j = await r.json();
+        document.getElementById('bc-output').textContent = JSON.stringify(j, null, 2);
+      });
+
+      document.getElementById('btn-verify').addEventListener('click', async ()=>{
+        const r = await fetch('/api/blockchain/verify');
+        const j = await r.json();
+        document.getElementById('bc-output').textContent = JSON.stringify(j, null, 2);
+      });
+
+      loadUsers();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,553 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Smart Traffic Safety</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #060b17;
+      color: #e2e8f0;
+    }
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: radial-gradient(circle at top left, rgba(59, 130, 246, 0.18), transparent 28%),
+                  radial-gradient(circle at bottom right, rgba(16, 185, 129, 0.15), transparent 25%),
+                  #020617;
+    }
+    .page {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+    .topbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+    .brand {
+      line-height: 1.2;
+    }
+    .brand h1 {
+      margin: 0;
+      font-size: clamp(1.9rem, 2.4vw, 2.6rem);
+    }
+    .brand p {
+      margin: 8px 0 0;
+      color: #94a3b8;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(148,163,184,0.18);
+      color: #f8fafc;
+      font-size: 0.95rem;
+    }
+    .grid {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: 1.6fr 1fr;
+    }
+    .panel {
+      background: rgba(15, 23, 42, 0.92);
+      border: 1px solid rgba(148, 163, 184, 0.14);
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 30px 45px rgba(0,0,0,0.18);
+    }
+    .panel h2 {
+      margin: 0 0 16px;
+      font-size: 1.2rem;
+      color: #f8fafc;
+    }
+    .status-grid {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .card {
+      background: #111827;
+      border: 1px solid rgba(148, 163, 184, 0.12);
+      border-radius: 18px;
+      padding: 18px;
+      min-height: 120px;
+    }
+    .card strong {
+      display: block;
+      font-size: 0.95rem;
+      margin-bottom: 10px;
+      color: #cbd5e1;
+    }
+    .card p {
+      margin: 0;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #f8fafc;
+    }
+    .video-frame {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid rgba(148, 163, 184, 0.10);
+      min-height: 420px;
+      background: #000;
+    }
+    .video-frame img {
+      width: 100%;
+      height: auto;
+      display: block;
+      min-height: 420px;
+      object-fit: cover;
+      background: #000;
+    }
+    .info-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 12px;
+    }
+    .info-list li {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(148, 163, 184, 0.1);
+      border-radius: 14px;
+      padding: 14px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      color: #cbd5e1;
+      font-size: 0.96rem;
+    }
+    .info-list li span:last-child {
+      font-weight: 700;
+      color: #f1f5f9;
+    }
+    .section-footer {
+      margin-top: 16px;
+      font-size: 0.94rem;
+      color: #94a3b8;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 18px;
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(135deg, #0ea5e9, #22c55e);
+      color: #fff;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 150ms ease, filter 150ms ease;
+      text-decoration: none;
+    }
+    .btn:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.05);
+    }
+    .event-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      color: #e2e8f0;
+    }
+    .event-table th,
+    .event-table td {
+      padding: 12px 10px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+      text-align: left;
+      font-size: 0.95rem;
+    }
+    .event-table th {
+      color: #94a3b8;
+      font-weight: 600;
+    }
+    .event-table tbody tr:hover {
+      background: rgba(148, 163, 184, 0.06);
+    }
+    .hint {
+      color: #94a3b8;
+      font-size: 0.95rem;
+      margin-top: 18px;
+      line-height: 1.6;
+    }
+    @media (max-width: 900px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+      .status-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="topbar">
+      <div class="brand">
+        <h1>Smart Traffic Safety</h1>
+        <p>Giám sát tài xế theo thời gian thực, cảnh báo buồn ngủ tức thì và ghi nhận sự kiện bằng blockchain.</p>
+      </div>
+      <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+        <span class="badge">Người dùng: {{ username }}</span>
+        <a class="btn" href="{{ url_for('logout') }}">Đăng xuất</a>
+      </div>
+    </div>
+
+    <div class="grid">
+      <section class="panel">
+        <h2>Camera trực tiếp</h2>
+        <div class="video-frame">
+          <img id="liveVideo" src="{{ url_for('video_feed') }}" alt="Live camera feed">
+        </div>
+        <p class="section-footer">Nếu không thấy hình ảnh, kiểm tra lại nguồn camera hoặc thử làm mới trang.</p>
+      </section>
+
+      <section class="panel">
+        <h2>Trạng thái hệ thống</h2>
+        <div class="status-grid">
+          <div class="card">
+            <strong>Camera ID</strong>
+            <p>{{ camera_id }}</p>
+          </div>
+          <div class="card">
+            <strong>Blockchain</strong>
+            <p id="blockCount">--</p>
+          </div>
+          <div class="card">
+            <strong>Giao dịch chờ</strong>
+            <p id="pendingCount">--</p>
+          </div>
+          <div class="card">
+            <strong>Chuỗi hợp lệ</strong>
+            <p id="chainValid">--</p>
+          </div>
+        </div>
+
+        <div class="hint">
+          Endpoints API sẵn dùng: <code>/api/events/drowsiness</code>, <code>/api/blockchain/status</code>, <code>/api/blockchain/mine</code>
+          , <code>/api/metamask/next-alert</code>
+        </div>
+        <div class="hint" style="margin-top: 10px;">
+          Contract hiện tại: <code id="contractAddressText">{{ contract_address }}</code>
+        </div>
+        <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+          <input id="contractAddressInput" type="text" placeholder="0x... contract address" readonly style="flex:1; min-width:220px; padding:12px 14px; border-radius:999px; border:1px solid rgba(148,163,184,0.18); background:#0b1220; color:#94a3b8;" />
+          <button class="btn" id="saveContractBtn" onclick="saveContractAddress()" disabled>Địa chỉ từ server</button>
+        </div>
+        <div style="margin-top:20px; display:flex; gap:12px; flex-wrap:wrap;">
+              <button class="btn" onclick="refreshStatus()">Làm mới trạng thái</button>
+              <button class="btn" onclick="loadEvents()">Cập nhật sự kiện</button>
+              <button id="connectWalletBtn" class="btn" onclick="connectWallet()">Kết nối MetaMask</button>
+              <button id="sendEventBtn" class="btn" onclick="sendTestEvent()">Gửi sự kiện (MetaMask)</button>
+        </div>
+        <div id="metamaskStatus" class="hint" style="margin-top:12px;">MetaMask: chưa kết nối</div>
+      </section>
+    </div>
+
+    <section class="panel" style="margin-top: 20px;">
+      <h2>Danh sách sự kiện buồn ngủ</h2>
+      <div style="overflow-x:auto;">
+        <table class="event-table">
+          <thead>
+            <tr>
+              <th>Khối</th>
+              <th>Thời điểm</th>
+              <th>Mức cảnh báo</th>
+              <th>Ảnh</th>
+            </tr>
+          </thead>
+          <tbody id="eventRows">
+            <tr><td colspan="4" style="text-align:center; color:#94a3b8;">Đang tải dữ liệu...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // MetaMask / Ethers integration
+    const SERVER_CONTRACT_ADDRESS = "{{ contract_address }}";
+    const CONTRACT_ABI = {{ contract_abi | tojson }};
+    let connectedAccount = null;
+    let alertPollTimer = null;
+    let processingAlertId = null;
+    let ethersReadyPromise = null;
+
+    function setMetaMaskStatus(message) {
+      const element = document.getElementById('metamaskStatus');
+      if (element) {
+        element.textContent = message;
+      }
+    }
+
+    function isValidContractAddress(value) {
+      return typeof value === 'string' && /^0x[a-fA-F0-9]{40}$/.test(value.trim());
+    }
+
+    function normalizeContractAddress(value) {
+      return (value || '').trim();
+    }
+
+    function saveContractAddress() {
+      setMetaMaskStatus('MetaMask: contract address do server cung cấp, không cho ghi đè tại trình duyệt.');
+    }
+
+    function getEffectiveContractAddress() {
+      const fromServer = normalizeContractAddress(SERVER_CONTRACT_ADDRESS);
+      return isValidContractAddress(fromServer) ? fromServer : '';
+    }
+
+    async function loadEthers() {
+      if (window.ethers) {
+        return window.ethers;
+      }
+      if (ethersReadyPromise) {
+        return ethersReadyPromise;
+      }
+
+      ethersReadyPromise = new Promise((resolve, reject) => {
+        const sources = [
+          'https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js',
+          'https://unpkg.com/ethers@5.7.2/dist/ethers.umd.min.js'
+        ];
+
+        const tryLoad = (index) => {
+          if (index >= sources.length) {
+            reject(new Error('Không tải được ethers.js từ CDN'));
+            return;
+          }
+          const script = document.createElement('script');
+          script.src = sources[index];
+          script.onload = () => {
+            if (window.ethers) {
+              resolve(window.ethers);
+            } else {
+              tryLoad(index + 1);
+            }
+          };
+          script.onerror = () => tryLoad(index + 1);
+          document.head.appendChild(script);
+        };
+
+        tryLoad(0);
+      });
+
+      return ethersReadyPromise;
+    }
+
+    async function connectWallet() {
+      if (!window.ethereum) {
+        alert('MetaMask không được cài đặt. Vui lòng cài đặt MetaMask trước.');
+        return;
+      }
+      try {
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        const account = accounts[0];
+        connectedAccount = account;
+        document.getElementById('connectWalletBtn').textContent = account.slice(0,6) + '...' + account.slice(-4);
+        setMetaMaskStatus('MetaMask: đã kết nối ' + account);
+        startAlertPolling();
+        console.log('Connected', account);
+      } catch (err) {
+        console.error('User rejected', err);
+        setMetaMaskStatus('MetaMask: chưa kết nối');
+      }
+    }
+
+    async function getContractWithSigner() {
+      if (!window.ethereum) {
+        throw new Error('MetaMask không được cài đặt');
+      }
+      const ethersLib = await loadEthers();
+      const provider = new ethersLib.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      const contractAddress = getEffectiveContractAddress();
+      if (!isValidContractAddress(contractAddress)) {
+        throw new Error('Chưa có contract address hợp lệ từ server. Hãy kiểm tra `.env` và khởi động lại ứng dụng.');
+      }
+      return new ethersLib.Contract(contractAddress, CONTRACT_ABI, signer);
+    }
+
+    async function estimateSafeGas(contract, args) {
+      try {
+        const estimated = await contract.estimateGas.addDrowsinessEvent(...args);
+        return estimated.mul(120).div(100);
+      } catch (err) {
+        throw new Error('Không ước lượng được gas. Kiểm tra lại contract address/ABI trên server. ' + (err.message || err));
+      }
+    }
+
+    async function sendAlertToMetaMask(alertItem) {
+      if (!alertItem || !alertItem.alert_id || processingAlertId === alertItem.alert_id) {
+        return;
+      }
+      processingAlertId = alertItem.alert_id;
+      try {
+        const contract = await getContractWithSigner();
+        const txArgs = [
+          alertItem.user_id,
+          alertItem.camera_id,
+          alertItem.image_path,
+          alertItem.timestamp,
+          alertItem.alert_level
+        ];
+        const gasLimit = await estimateSafeGas(contract, txArgs);
+        setMetaMaskStatus('MetaMask: đang chờ xác nhận giao dịch cho cảnh báo ' + alertItem.alert_id);
+        const tx = await contract.addDrowsinessEvent(...txArgs, { gasLimit });
+        setMetaMaskStatus('MetaMask: transaction đã gửi ' + tx.hash);
+        await tx.wait();
+        await fetch('/api/metamask/ack-alert', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ alert_id: alertItem.alert_id })
+        });
+        setMetaMaskStatus('MetaMask: đã gửi và xác nhận cảnh báo ' + alertItem.alert_id);
+        await loadEvents();
+      } catch (err) {
+        console.error(err);
+        setMetaMaskStatus('MetaMask: lỗi gửi cảnh báo - ' + (err.message || err));
+      } finally {
+        processingAlertId = null;
+      }
+    }
+
+    async function pollMetaMaskAlerts() {
+      if (!connectedAccount || processingAlertId) {
+        return;
+      }
+      try {
+        const res = await fetch('/api/metamask/next-alert');
+        const data = await res.json();
+        if (data.has_alert && data.alert) {
+          await sendAlertToMetaMask(data.alert);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    function startAlertPolling() {
+      if (alertPollTimer) {
+        return;
+      }
+      alertPollTimer = setInterval(pollMetaMaskAlerts, 3000);
+      pollMetaMaskAlerts();
+    }
+
+    async function sendTestEvent() {
+      if (!window.ethereum) {
+        alert('MetaMask không được cài đặt.');
+        return;
+      }
+
+      try {
+        await window.ethereum.request({ method: 'eth_requestAccounts' });
+        const contract = await getContractWithSigner();
+
+        // Dữ liệu mẫu - thực tế ứng dụng nên truyền dữ liệu thật từ backend
+        const userId = '{{ user_id or "driver1" }}';
+        const cameraId = '{{ camera_id or "CAMERA_001" }}';
+        const imagePath = 'captured_images/test_alert.jpg';
+        const timestamp = new Date().toISOString();
+        const alertLevel = 'high';
+        const txArgs = [userId, cameraId, imagePath, timestamp, alertLevel];
+        const gasLimit = await estimateSafeGas(contract, txArgs);
+        const tx = await contract.addDrowsinessEvent(...txArgs, { gasLimit });
+        console.log('Transaction sent', tx.hash);
+        alert('Transaction sent: ' + tx.hash);
+        await tx.wait();
+        alert('Transaction confirmed');
+      } catch (err) {
+        console.error(err);
+        alert('Gửi transaction thất bại: ' + (err.message || err));
+      }
+    }
+
+    function initializeContractAddressUi() {
+      const effective = getEffectiveContractAddress();
+      const addressToShow = effective || normalizeContractAddress(SERVER_CONTRACT_ADDRESS) || 'Chưa cấu hình';
+      document.getElementById('contractAddressText').textContent = addressToShow;
+      const input = document.getElementById('contractAddressInput');
+      if (input) {
+        input.value = addressToShow;
+      }
+      const saveButton = document.getElementById('saveContractBtn');
+      if (saveButton) {
+        saveButton.disabled = true;
+      }
+      if (!effective) {
+        setMetaMaskStatus('MetaMask: chưa có contract address hợp lệ từ server.');
+      }
+    }
+
+    async function refreshStatus() {
+      try {
+        const res = await fetch('/api/blockchain/status');
+        const data = await res.json();
+        document.getElementById('blockCount').textContent = data.total_blocks ?? '??';
+        document.getElementById('pendingCount').textContent = data.pending_transactions ?? '??';
+        document.getElementById('chainValid').textContent = data.is_valid ? '✓' : '✗';
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    async function loadEvents() {
+      try {
+        const res = await fetch('/api/events/drowsiness');
+        const data = await res.json();
+        const tbody = document.getElementById('eventRows');
+        tbody.innerHTML = '';
+        if (!data.events || data.events.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; color:#94a3b8;">Chưa có sự kiện</td></tr>';
+          return;
+        }
+        data.events.slice(0, 8).forEach(event => {
+          const imageUrl = event.image_url || '#';
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>#${event.block_index}</td>
+            <td>${event.detected_at || event.recorded_at || 'Không có'}</td>
+            <td>${event.alert_level || 'N/A'}</td>
+            <td>${event.image_url ? '<a href="' + imageUrl + '" target="_blank" style="color:#38bdf8; text-decoration:none;">Xem</a>' : 'Không có'}</td>
+          `;
+          tbody.appendChild(row);
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    refreshStatus();
+    loadEvents();
+    initializeContractAddressUi();
+    if (window.ethereum) {
+      window.ethereum.request({ method: 'eth_accounts' }).then(accounts => {
+        if (accounts && accounts.length > 0) {
+          connectedAccount = accounts[0];
+          document.getElementById('connectWalletBtn').textContent = accounts[0].slice(0,6) + '...' + accounts[0].slice(-4);
+          setMetaMaskStatus('MetaMask: đã kết nối ' + accounts[0]);
+          startAlertPolling();
+        }
+      }).catch(console.error);
+    }
+    setInterval(refreshStatus, 10000);
+    setInterval(loadEvents, 15000);
+  </script>
+</body>
+</html>

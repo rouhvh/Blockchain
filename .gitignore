@@ -1,0 +1,57 @@
+# Environment variables - NEVER commit!
+.env
+.env.local
+.env.*.local
+
+# Python virtual environment
+venv/
+.venv/
+env/
+ENV/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Large model files (use Git LFS or download from source)
+*.h5
+yolov8n.pt
+
+# User data - privacy
+captured_images/
+*.jpg
+*.jpeg
+*.png
+
+# Dataset (can be regenerated or download from source)
+# dataset/  # Uncomment if dataset is too large
+
+# Logs
+*.log
+logs/
+
+# Node (if using npm)
+node_modules/
+package-lock.json
+yarn.lock
+
+# IDE
+.idea/
+.vscode/settings.json
