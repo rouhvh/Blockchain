@@ -3,29 +3,6 @@
     🎓 Faculty of Information Technology (DaiNam University)
     </a>
 </h2>
-<h2 align="center">
-    ỨNG DỤNG ĐIỀU KHIỂN MÁY TÍNH TỪ XA (REMOTE CONTROL) 
-</h2>
-<div align="center">
-    <p align="center">
-        <img src="docs/aiotlab_logo.png" alt="AIoTLab Logo" width="170"/>
-        <img src="docs/fitdnu_logo.png" alt="AIoTLab Logo" width="180"/>
-        <img src="docs/dnu_logo.png" alt="DaiNam University Logo" width="200"/>
-    </p>
-
-[![AIoTLab](https://img.shields.io/badge/AIoTLab-green?style=for-the-badge)](https://www.facebook.com/DNUAIoTLab)
-[![Faculty of Information Technology](https://img.shields.io/badge/Faculty%20of%20Information%20Technology-blue?style=for-the-badge)](https://dainam.edu.vn/vi/khoa-cong-nghe-thong-tin)
-[![DaiNam University](https://img.shields.io/badge/DaiNam%20University-orange?style=for-the-badge)](https://dainam.edu.vn)
-
-</div>
-
-# 🚗💤 HỆ THỐNG CẢNH BÁO BUỒN NGỦ KHI LÁI XE KẾT HỢP BLOCKCHAIN
-
-<h2 align="center">
-    <a href="https://dainam.edu.vn/vi/khoa-cong-nghe-thong-tin">
-    🎓 Faculty of Information Technology (DaiNam University)
-    </a>
-</h2>
 
 <h2 align="center">
     HỆ THỐNG CẢNH BÁO BUỒN NGỦ KHI LÁI XE KẾT HỢP BLOCKCHAIN
@@ -36,7 +13,9 @@
         <img src="docs/fitdnu_logo.png" alt="FITDNU Logo" width="180"/>
         <img src="docs/dnu_logo.png" alt="Dai Nam University Logo" width="200"/>
     </p>
-
+[![AIoTLab](https://img.shields.io/badge/AIoTLab-green?style=for-the-badge)](https://www.facebook.com/DNUAIoTLab)
+[![Faculty of Information Technology](https://img.shields.io/badge/Faculty%20of%20Information%20Technology-blue?style=for-the-badge)](https://dainam.edu.vn/vi/khoa-cong-nghe-thong-tin)
+[![DaiNam University](https://img.shields.io/badge/DaiNam%20University-orange?style=for-the-badge)](https://dainam.edu.vn)
 </div>
 
 ---
@@ -227,7 +206,11 @@ Sepolia Testnet
 ### Hình 1. Giao diện đăng nhập
 
 <p align="center">
+<<<<<<< HEAD
+<img src="docs/.png" width="700">
+=======
 <img src="docs/e.png" width="700">
+>>>>>>> 589a78ad6245bdb5945a1e68d0760bf87d01298d
 </p>
 
 ### Hình 2. Mắt mở bình thường
